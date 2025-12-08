@@ -1,7 +1,13 @@
 import asyncio
 import os
 from agent_framework.azure import AzureAIAgentClient
-from agent_framework import ChatAgent, HostedMCPTool, GroupChatBuilder, AgentRunUpdateEvent, SequentialBuilder
+from agent_framework import (
+    ChatAgent,
+    HostedMCPTool,
+    GroupChatBuilder,
+    AgentRunUpdateEvent,
+    SequentialBuilder,
+)
 from azure.identity.aio import AzureCliCredential
 from dotenv import load_dotenv
 from models.issue_analyzer import IssueAnalyzer
@@ -59,14 +65,14 @@ async def main():
         "model_deployment_name": os.environ["AZURE_AI_MODEL_DEPLOYMENT_NAME"],
         "async_credential": AzureCliCredential(),
     }
-    
+
     async with (
         AzureAIAgentClient(**settings).create_agent(
             name="GitHubAgent",
             instructions=f"""
                     You are a helpful assistant that can create an issue on the user's GitHub repository based on the input provided.
                     To create the issue, use the GitHub MCP tool.
-                    You work on this repository: {os.environ['GITHUB_PROJECT_REPO']}
+                    You work on this repository: {os.environ["GITHUB_PROJECT_REPO"]}
                 """,
             tools=HostedMCPTool(
                 name="GitHub MCP",
@@ -102,26 +108,32 @@ async def main():
             ),
         ) as ms_learn_agent,
     ):
-
         group_workflow = (
             GroupChatBuilder()
-            .set_prompt_based_manager(
-                chat_client=AzureAIAgentClient(**settings), 
-                display_name="Issue Creation Group Chat Workflow",
-                instructions="""
-                    You are a workflow manager that helps create GitHub issues based on user input.
-                    First, analyze the input using the Issue Analyzer Agent to determine the issue type, likely cause, and complexity.
-                    If an issue requires additional information from documentation, ask other specialized agents.
-                    Finally, create a GitHub issue using the GitHub Agent with the analyzed information.
-                """,
+            .set_manager(
+                manager=AzureAIAgentClient(**settings).create_agent(
+                    name="Issue Creation Group Chat Workflow",
+                    instructions="""
+                        You are a workflow manager that helps create GitHub issues based on user input.
+                        First, analyze the input using the Issue Analyzer Agent to determine the issue type, likely cause, and complexity.
+                        If an issue requires additional information from documentation, ask other specialized agents.
+                        Finally, create a GitHub issue using the GitHub Agent with the analyzed information.
+                    """,
+                ),
             )
-            .participants(github_agent=github_agent, issue_analyzer_agent=issue_analyzer_agent)
+            .participants(
+                github_agent=github_agent, issue_analyzer_agent=issue_analyzer_agent
+            )
             .build()
         )
-        
+
         group_workflow_agent = group_workflow.as_agent(name="GroupChatWorkflowAgent")
-        workflow = SequentialBuilder().participants([ms_learn_agent, group_workflow_agent]).build()
-         
+        workflow = (
+            SequentialBuilder()
+            .participants([ms_learn_agent, group_workflow_agent])
+            .build()
+        )
+
         task = """An issue in my Azure App Services is causing intermittent 500 errors. 
                     Traceback (most recent call last):
                                 File "<string>", line 38, in <module>
@@ -134,7 +146,7 @@ async def main():
                                     return total / count                  ← ERROR HERE
                                         ~~~~~~^~~~~~~
                                 ZeroDivisionError: division by zero"""
-        
+
         print("\nStarting Group Chat Workflow...\n")
         print(f"Input: {task}\n")
 
@@ -152,7 +164,7 @@ async def main():
                     if event.data:
                         print(event.data.text, end="", flush=True)
             print()  # Final newline after conversation
-            
+
         except Exception as e:
             print(f"Workflow execution failed: {e}")
 

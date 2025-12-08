@@ -1,7 +1,12 @@
 import asyncio
 import os
 from agent_framework.azure import AzureAIAgentClient
-from agent_framework import ChatAgent, HostedMCPTool, GroupChatBuilder, AgentRunUpdateEvent
+from agent_framework import (
+    ChatAgent,
+    HostedMCPTool,
+    GroupChatBuilder,
+    AgentRunUpdateEvent,
+)
 from azure.identity.aio import AzureCliCredential
 from dotenv import load_dotenv
 from models.issue_analyzer import IssueAnalyzer
@@ -59,8 +64,6 @@ async def main():
         "model_deployment_name": os.environ["AZURE_AI_MODEL_DEPLOYMENT_NAME"],
         "async_credential": AzureCliCredential(),
     }
-    
-    github_repo = os.environ['GITHUB_PROJECT_REPO']
 
     async with (
         AzureAIAgentClient(**settings).create_agent(
@@ -68,7 +71,7 @@ async def main():
             instructions=f"""
                     You are a helpful assistant that can create an issue on the user's GitHub repository based on the input provided.
                     To create the issue, use the GitHub MCP tool.
-                    You work on this repository: {os.environ['GITHUB_PROJECT_REPO']}
+                    You work on this repository: {os.environ["GITHUB_PROJECT_REPO"]}
                 """,
             tools=HostedMCPTool(
                 name="GitHub MCP",
@@ -101,29 +104,32 @@ async def main():
             ),
         ) as ms_learn_agent,
     ):
-
         workflow = (
             GroupChatBuilder()
-            .set_prompt_based_manager(
-                chat_client=AzureAIAgentClient(**settings), 
-                display_name="Issue Creation Group Chat Workflow",
-                instructions="""
-                    You are a workflow manager that helps create GitHub issues based on user input.
-                    First, analyze the input using the Issue Analyzer Agent to determine the issue type, likely cause, and complexity.
-                    Finally, create a GitHub issue using the GitHub Agent with the analyzed information.
-                """,
+            .set_manager(
+                manager=AzureAIAgentClient(**settings).create_agent(
+                    name="Issue Creation Group Chat Workflow",
+                    instructions="""
+                        You are a workflow manager that helps create GitHub issues based on user input.
+                        First, analyze the input using the Issue Analyzer Agent to determine the issue type, likely cause, and complexity.
+                        If an issue requires additional information from documentation, ask other specialized agents.
+                        Finally, create a GitHub issue using the GitHub Agent with the analyzed information.
+                    """,
+                ),
             )
-            .participants(github_agent=github_agent, issue_analyzer_agent=issue_analyzer_agent)
+            .participants(
+                github_agent=github_agent, issue_analyzer_agent=issue_analyzer_agent
+            )
             .build()
         )
-                                    
+
         task = """This will be great to be able to change the UI Colors based on the time of day!"""
-        
+
         print("\nStarting Group Chat Workflow...\n")
         print(f"Input: {task}\n")
 
         try:
-                        # Run with a question that requires expert selection
+            # Run with a question that requires expert selection
             print("[Agent Framework] Group chat conversation:")
             current_executor = None
             async for event in workflow.run_stream(task):
@@ -137,7 +143,7 @@ async def main():
                     if event.data:
                         print(event.data.text, end="", flush=True)
             print()  # Final newline after conversation
-            
+
         except Exception as e:
             print(f"Workflow execution failed: {e}")
 
