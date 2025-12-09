@@ -513,19 +513,43 @@ To do that you will use a mechanism called Group Chat Workflow provided by the A
 
 This will allow the agents to communicate and collaborate to handle ask in their own chat.
 
-Let's create the `GroupChatBuilder` inside the `main.py` file. Just after the creation of the GitHubAgent, add the following code:
+Let's create the `GroupChatBuilder` inside the `main.py` file. 
+
+First import the `GroupChatBuilder` class at the top of the file:
 
 ```python
-TODO
+from agent_framework import GroupChatBuilder
 ```
 
-As you can see, you create a group chat workflow with the IssueAnalyzerAgent and the GitHubAgent. 
-As you can see, the agents are guided by a manager agent that will route the requests to the appropriate agent based on the prompt.
+Just after the creation of the GitHubAgent, add the following code:
+
+```python
+group_workflow = (
+    GroupChatBuilder()
+    .set_manager(
+        manager=AzureAIAgentClient(**settings).create_agent(
+            name="Issue Creation Group Chat Workflow",
+            instructions="""
+                You are a workflow manager that helps create GitHub issues based on user input.
+                First, analyze the input using the Issue Analyzer Agent to determine the issue type, likely cause, and complexity.
+                If an issue requires additional information from documentation, ask other specialized agents.
+                Finally, create a GitHub issue using the GitHub Agent with the analyzed information.
+            """,
+        ),
+    )
+    .participants(
+        github_agent=github_agent, issue_analyzer_agent=issue_analyzer_agent
+    )
+    .build()
+)
+```
+
+As you can see, you create a group chat workflow with the IssueAnalyzerAgent and the GitHubAgent. The agents are guided by a manager agent that will route the requests to the appropriate agent based on the prompt.
 
 Now, update the Dev UI setup to run the group chat workflow instead of the individual agents:
 
 ```python
-TODO
+serve(entities=[group_workflow], port=8090, auto_open=True, tracing_enabled=True)
 ```
 
 Now, run your agent again:
@@ -536,7 +560,7 @@ uv run python main.py
 
 You can now interact with the group chat workflow. The manager agent will route your requests to the appropriate agent based on the prompt.
 
-The final `main.py` file can be found in `solutions/lab_5.py`.
+> The final `main.py` file can be found in `solutions/lab_5.py`.
 
 ---
 
@@ -547,7 +571,25 @@ Let's go a step further and add one more agent in the picture. You will add an D
 First, create the DocsAgent inside the `main.py` file. Just after the creation of the GitHubAgent, add the following code:
 
 ```python
-TODO
+ms_learn_agent = AzureAIAgentClient(**settings).create_agent(
+    name="DocsAgent",
+    instructions="""
+        You are a helpful assistant that can help with Microsoft documentation questions.
+        Provide accurate and concise information based on the documentation available.
+    """,
+    tools=HostedMCPTool(
+        name="Microsoft Learn MCP",
+        url="https://learn.microsoft.com/api/mcp",
+        description="A Microsoft Learn MCP server for documentation questions",
+        approval_mode="never_require",
+    ),
+)
+```
+
+If you want to test it individually, you can update the Dev UI integration:
+
+```python
+serve(entities=[ms_learn_agent], port=8090, auto_open=True, tracing_enabled=True)
 ```
 
 As you can see, you dynamically load the MCP Learn tool, without authentication for this one, as it's totally open, and create the agent using this tool.
@@ -557,19 +599,25 @@ Then, let's create a sequential workflow that will first, call the DocsAgent and
 Let's first transform the workflow containing the IssueAnalyzerAgent and the GitHubAgent into an agent so it can be called inside another workflow.
 
 ```python
-TODO
+group_workflow_agent = group_workflow.as_agent(
+    name="IssueCreationAgentGroup"
+)
 ```
 
 Then, create the sequential workflow:
 
 ```python
-TODO
+workflow = (
+    SequentialBuilder()
+    .participants([ms_learn_agent, group_workflow_agent])
+    .build()
+)
 ```
 
 Update the Dev UI setup to run the sequential workflow instead of the group chat workflow:
 
 ```python
-TODO
+serve(entities=[workflow], port=8090, auto_open=True, tracing_enabled=True)
 ```
 
 Finally, run your agent again:
@@ -578,7 +626,7 @@ Finally, run your agent again:
 uv run python main.py
 ```
 
-The final `main.py` file can be found in `solutions/lab_6.py`.
+> The final `main.py` file can be found in `solutions/lab_6.py`.
 
 ---
 
@@ -609,20 +657,3 @@ TODO
 ```
 
 You can run the flow again, and now the GitHubAgent will use the knowledge base to provide more accurate and relevant answers based on your company's documentation.
-
-
----
-
-## Add observability with OpenTelemetry
-
----
-
-## Evaluate your agent
-
----
-
-## Add AG UI integration
-
----
-
-## Bonus: Agent-to-Agent Communication
