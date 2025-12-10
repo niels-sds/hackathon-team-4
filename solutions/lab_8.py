@@ -6,11 +6,13 @@ from dotenv import load_dotenv
 from agent_framework.devui import serve
 from models.issue_analyzer import IssueAnalyzer
 from tools.time_per_issue_tools import TimePerIssueTools
+from agent_framework.observability import setup_observability
 import logging
 
 load_dotenv()
 
 def main():
+    setup_observability()
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     
     settings = {
