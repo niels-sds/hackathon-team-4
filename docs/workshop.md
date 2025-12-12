@@ -353,7 +353,6 @@ https://learn.microsoft.com/en-us/agent-framework/user-guide/devui/?pivots=progr
 </details>
 
 ---
-
 ## Add response format
 
 Let's structure the output of your agent to make it more useful.
@@ -858,7 +857,7 @@ If you want to go deeper into observability with the Agent Framework, you can fo
 
 ---
 
-# Closing the workshop
+## Closing the workshop
 
 Once you're done with this lab you can delete the resource group you created at the beginning.
 
@@ -876,12 +875,11 @@ If you have finished you gained a GG from our mascott !
 
 [![gg-mascott](./assets/xmasbit.jpeg)](./assets/xmasbit.jpeg)
 
-
 </details>
 
 ---
 
-# Takeaways
+## Takeaways
 
 Congratulations! You have successfully completed this hands-on lab on building agentic applications on Azure using Microsoft Foundry and the Agent Framework SDK. To explore more advanced Agent Framework capabilities, consider checking out the following resources:
 
