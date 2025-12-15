@@ -606,6 +606,52 @@ Now, run your agent again:
 uv run python main.py
 ```
 
+<div class="tip" data-title="Tip: stop an old run before relaunching">
+
+> If you already ran `uv run python main.py`, Dev UI may still be running in another terminal.
+> Stop it with `Ctrl+C`, then run the command again.
+>
+> If the port is still busy, find and kill the process using port `8090`:
+>
+> ```bash
+> lsof -i :8090
+> kill <pid>
+> ```
+
+</div>
+
+<div class="task" data-title="Try it: test the agent within its scope">
+
+> In Dev UI, select **IssueAnalyzerAgent** and try one of the prompts below.
+>
+> **Bug (should classify complexity, then call the tool for the estimate):**
+>
+> ```txt
+> There is an issue with the Azure App Services is causing intermittent 500 errors.
+>
+> Traceback (most recent call last):
+>   File "<string>", line 38, in <module>
+>     main_application()     - Entry point
+>   File "<string>", line 30, in main_application
+>     results = process_data_batch(test_data) - alls processor
+>   File "<string>", line 13, in process_data_batch
+>     avg = calculate_average(batch)   - Calls calculator
+>   File "<string>", line 5, in calculate_average
+>     return total / count    -  ERROR HERE
+>         ~~~~~~^~~~~~~
+> ZeroDivisionError: division by zero
+> ```
+>
+> **Feature request (should set complexity to NA, then still call the tool for the estimate):**
+>
+> ```txt
+> Please add a dark mode to the application.
+> ```
+>
+> Verification: open the **Tools** tab and confirm you see a call to `calculate_time_based_on_complexity`.
+
+</div>
+
 As you can see in the `Tools` tab of Dev UI, the agent used the `calculate_time_based_on_complexity` tool to estimate the time to resolve the issue based on its complexity. If you look at the **Tools** tab, you should see the tool being called with the complexity level and the estimated time being returned:
 
 [![devui-tools-tab](./assets/issue_agent_tool_devui.png)](./assets/issue_agent_tool_devui.png)
