@@ -1012,7 +1012,7 @@ setup_observability()
 
 That's it for the Python code! Then update the `.env` file with the Application Insights connection string. You can find it in the Azure Portal inside your resource group, in the Application Insights resource created by the Terraform deployment. 
 
-![app-insights-connection-string](./assets/app-insights-connection-string.png)
+[![app-insights-connection-string](./assets/app-insights-connection-string.png)](./assets/app-insights-connection-string.png)
 
 Now, run your agents or workflow again and play with it:
 
@@ -1038,8 +1038,8 @@ You will be able to see the full trace of the agent run, like tool calls, and an
 <summary><strong>Information (optional): OpenTelemetry traces</strong></summary>
 
 If you want to go deeper into observability with the Agent Framework, you can follow the official tutorial on OpenTelemetry traces:
-- https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/observability-for-multi-agent-systems-with-microsoft-agent-framework-and-azure-a/4469090
-- https://github.com/microsoft/agent-framework/tree/main/python/samples/getting_started/observability
+- [Observability for multi-agent systems with Microsoft Agent Framework (TechCommunity)](https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/observability-for-multi-agent-systems-with-microsoft-agent-framework-and-azure-a/4469090)
+- [Agent Framework observability sample (GitHub)](https://github.com/microsoft/agent-framework/tree/main/python/samples/getting_started/observability)
 
 
 
