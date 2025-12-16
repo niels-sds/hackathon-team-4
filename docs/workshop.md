@@ -1076,7 +1076,7 @@ If you have finished you gained a GG from our mascott Bits !
 Congratulations! You have successfully completed this hands-on lab on building agentic applications on Azure using Microsoft Foundry and the Agent Framework SDK. To explore more advanced Agent Framework capabilities, consider checking out the following resources:
 
 **Additional Resources:**
-- [Agent framework for beginners](aka.ms/ai-agents-beginners)
+- [Agent framework for beginners](https://aka.ms/ai-agents-beginners)
 - [Get Started with Agent Framework](https://aka.ms/AgentFramework)
 - [Agent Framework Documentation](https://aka.ms/AgentFramework/Docs)
 - [Announcement Blog Agent framework](https://aka.ms/AgentFramework/PuPr)
@@ -1084,3 +1084,4 @@ Congratulations! You have successfully completed this hands-on lab on building a
 - [MCP for Beginners (GitHub)](https://github.com/microsoft/mcp-for-beginners/)
 
 - [MCP overview video (YouTube)](https://www.youtube.com/watch?v=VfZlglOWWZw&t=3s)
+
