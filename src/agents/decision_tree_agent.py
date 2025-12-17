@@ -21,7 +21,7 @@ You are a clinical decision tree architect.
    - true_branch: Either another node (as dict) or a risk level string
    - false_branch: Either another node (as dict) or a risk level string  
    - risk_level: null for decision nodes, or "Low"/"Medium"/"High"/"Critical" for leaf nodes
-4. Make the tree 2-3 levels deep
+4. Make the tree as deep and comprehensive as needed to properly stratify risk based on all available attributes
 5. Set risk_levels to ["Low", "Medium", "High", "Critical"]
 
 Example structure:

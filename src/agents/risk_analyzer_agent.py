@@ -16,11 +16,11 @@ You are a clinical risk assessment specialist.
 **YOUR TASK:**
 1. Read the documents from the previous agent
 2. Extract the impairment_name
-3. Identify 3-5 key risk_factors (e.g., age, smoking, family history, comorbidities)
-4. List 3-5 severity_indicators (e.g., test results, staging, symptom severity)
-5. Note 2-4 potential complications
-6. List 2-4 diagnostic_criteria
-7. Identify 3-5 decision_points that could stratify risk levels
+3. Identify all key risk_factors (e.g., age, smoking, family history, comorbidities)
+4. List all severity_indicators (e.g., test results, staging, symptom severity)
+5. Note all potential complications
+6. List all diagnostic_criteria
+7. Identify all decision_points that could stratify risk levels
 
 These attributes will be used to build a clinical decision tree.
         """,
