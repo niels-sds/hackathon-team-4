@@ -43,3 +43,9 @@ variable "resource_group_name" {
   description = "The name of the resource group"
   default     = ""
 }
+
+variable "additional_user_object_ids" {
+  type        = list(string)
+  description = "List of additional Azure user Object IDs to grant access (optional)"
+  default     = []
+}
