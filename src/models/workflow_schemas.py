@@ -54,3 +54,11 @@ class HTMLVisualization(BaseModel):
     """HTML visualization of the decision tree"""
     impairment_name: str = Field(description="The impairment being visualized")
     html_content: str = Field(description="Complete HTML page with embedded CSS and JavaScript")
+
+
+# Step 6 Output: Browser Action
+class BrowserAction(BaseModel):
+    """Action to open HTML in browser"""
+    html_file_path: str = Field(description="Path where the HTML file was saved")
+    success: bool = Field(description="Whether the file was successfully opened in browser")
+    message: str = Field(description="Confirmation or error message")

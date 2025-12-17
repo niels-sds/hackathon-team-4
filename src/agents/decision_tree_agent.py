@@ -13,13 +13,23 @@ You are a clinical decision tree architect.
 
 **INPUT:** Risk attributes from the previous agent
 
-**OUTPUT:** A structured decision tree with:
-- Root node asking the most important risk question
-- Branch nodes with yes/no decision points
-- Leaf nodes with risk level classifications
+**YOUR TASK:**
+1. Extract impairment_name and all risk attributes
+2. Build a root_node with the most important decision question
+3. Create nested decision nodes, each with:
+   - question: A clear yes/no question about a risk factor
+   - true_branch: Either another node (as dict) or a risk level string
+   - false_branch: Either another node (as dict) or a risk level string  
+   - risk_level: null for decision nodes, or "Low"/"Medium"/"High"/"Critical" for leaf nodes
+4. Make the tree 2-3 levels deep
+5. Set risk_levels to ["Low", "Medium", "High", "Critical"]
 
-The tree should be logical, clinically sound, and use the most significant risk factors.
-User will provide format example.
+Example structure:
+{
+  "question": "Age > 65?",
+  "true_branch": {"question": "Smoker?", "true_branch": "High", "false_branch": "Medium"},
+  "false_branch": "Low"
+}
         """,
         name="DecisionTreeAgent",
         output_schema=DecisionTree,

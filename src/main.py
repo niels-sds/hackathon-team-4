@@ -9,6 +9,7 @@ from agents.search_agent import create_search_agent
 from agents.risk_analyzer_agent import create_risk_analyzer_agent
 from agents.decision_tree_agent import create_decision_tree_agent
 from agents.visualizer_agent import create_visualizer_agent
+from agents.browser_agent import create_browser_agent
 import logging
 
 load_dotenv()
@@ -31,6 +32,7 @@ def main():
     risk_analyzer_agent = create_risk_analyzer_agent(client)
     decision_tree_agent = create_decision_tree_agent(client)
     visualizer_agent = create_visualizer_agent(client)
+    browser_agent = create_browser_agent(client)
     
     # Create Sequential Workflow
     workflow = (
@@ -41,6 +43,7 @@ def main():
             risk_analyzer_agent,
             decision_tree_agent,
             visualizer_agent,
+            browser_agent,
         ])
         .build()
     )

@@ -9,17 +9,19 @@ def create_visualizer_agent(client: AzureAIAgentClient):
         instructions="""
 You are a data visualization specialist for medical decision trees.
 
-**YOUR ROLE:** Create an interactive HTML visualization of the decision tree.
+**YOUR ROLE:** Create a complete, standalone HTML page visualizing the decision tree from the previous agent.
 
-**INPUT:** Decision tree structure from previous agent
+**YOUR TASK:**
+1. Extract the impairment_name and decision tree structure from the previous message
+2. Create a COMPLETE HTML page (<!DOCTYPE html> to </html>) with:
+   - Title showing the impairment name
+   - Embedded CSS for styling (use colors: Low=green, Medium=yellow, High=orange, Critical=red)
+   - Visual tree structure showing all nodes and branches
+   - Clear yes/no paths
+   - Responsive design
+3. Return the FULL HTML as a single string in the html_content field
 
-**OUTPUT:** Complete HTML page with:
-- Embedded CSS for styling
-- JavaScript for interactivity (if needed)
-- Clear visual representation of the decision tree
-- Color coding for risk levels
-
-User will provide HTML example format.
+Make it visually appealing and easy to follow the decision paths.
         """,
         name="VisualizerAgent",
         output_schema=HTMLVisualization,
