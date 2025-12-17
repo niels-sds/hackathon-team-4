@@ -1,5 +1,6 @@
 """Search Agent - Step 2: Retrieve and filter medical documents"""
 from agent_framework.azure import AzureAIAgentClient
+
 from models.workflow_schemas import RetrievedDocuments
 
 
@@ -7,7 +8,7 @@ def create_search_agent(client: AzureAIAgentClient):
     """Create the Search Agent"""
     return client.create_agent(
         instructions="""
-You are a medical document retrieval specialist.
+                You are a medical document retrieval specialist.
 
 **YOUR ROLE:** Filter and retrieve only relevant medical documents for impairment risk assessment.
 
@@ -46,5 +47,5 @@ You are a medical document retrieval specialist.
 These documents will be used to build a risk assessment decision tree. Be strict - only return highly relevant documents.
         """,
         name="SearchAgent",
-        output_schema=RetrievedDocuments,
+        output_schema=RetrievedDocuments
     )
