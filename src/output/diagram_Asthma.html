@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Asthma Risk Assessment</title>
+    <script
+      src="https://cdn.scordigital.solutions/components/latest/themes/brms-119d236af7cd.js"
+      data-turbo-track="reload"
+    ></script>
+    <script
+      src="https://cdn.scordigital.solutions/components/latest/index.js"
+      defer
+      data-turbo-track="reload"
+    ></script>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 20px; }
+      .sources { background: #f5f5f5; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+      .sources h2 { margin-top: 0; }
+      .sources a { display: block; margin: 5px 0; color: #0066cc; }
+    </style>
+  </head>
+  <body>
+
+    <rmv-styles
+      asset-path="https://cdn.scordigital.solutions/assets"
+    ></rmv-styles>
+    <rmv-diagram readonly>
+      <rmv-card padding="12" slot="actions">
+        <rmv-accordion text="Sources">
+          <rmv-column gap="12">
+            <a href="https://www.lung.org/lung-health-diseases/lung-disease-lookup/asthma" target="_blank">American Lung Association on Asthma</a>
+            <a href="https://ginasthma.org/" target="_blank">Global Initiative for Asthma (GINA)</a>
+            <a href="https://www.nhlbi.nih.gov/health-topics/asthma" target="_blank">NHLBI Asthma Guidelines</a>
+            <a href="https://www.cdc.gov/asthma/about.html" target="_blank">CDC Asthma Information</a>
+            <a href="https://www.mayoclinic.org/diseases-conditions/asthma" target="_blank">Mayo Clinic Asthma Overview</a>
+          </rmv-column>
+        </rmv-accordion>
+      </rmv-card>
+      <template></template>
+    </rmv-diagram>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const diagram = document.querySelector("rmv-diagram");
+        diagram.data = {
+          "nodes": [
+            {"id": 1, "title": "Rule / Decision Point", "content": "Do symptoms occur more than twice a month?" },
+            {"id": 2, "title": "Rule / Decision Point", "content": "Is there a recent history of severe exacerbations?" },
+            {"id": 3, "title": "Rule / Decision Point", "content": "Is there frequent use of rescue medication (inhaler) weekly?" },
+            {"id": 4, "title": "Rule / Decision Point", "content": "Is there poor lung function (<60% predicted FEV1)?" },
+            {"id": 5, "title": "Assignment", "content": "Critical", "type": "code"},
+            {"id": 6, "title": "Assignment", "content": "High", "type": "code"},
+            {"id": 7, "title": "Assignment", "content": "Medium", "type": "code"},
+            {"id": 8, "title": "Assignment", "content": "Low", "type": "code"},
+            {"id": 9, "title": "Assignment", "content": "Low", "type": "code"}
+          ],
+          "connections": [
+            {"source": 1, "target": 2, "label": "Yes"},
+            {"source": 1, "target": 9, "label": "No"},
+            {"source": 2, "target": 3, "label": "Yes"},
+            {"source": 2, "target": 8, "label": "No"},
+            {"source": 3, "target": 4, "label": "Yes"},
+            {"source": 3, "target": 7, "label": "No"},
+            {"source": 4, "target": 5, "label": "Yes"},
+            {"source": 4, "target": 6, "label": "No"}
+          ]
+        };
+      });
+    </script>
+  </body>
+</html>

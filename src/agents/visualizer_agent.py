@@ -50,17 +50,20 @@ You are a data visualization specialist for medical decision trees.
     </style>
   </head>
   <body>
-    <h1>{{IMPAIRMENT_NAME}} Risk Assessment Decision Tree</h1>
-    
-    <div class="sources">
-      <h2>Sources</h2>
-      {{SOURCE_LINKS}}
-    </div>
 
     <rmv-styles
       asset-path="https://cdn.scordigital.solutions/assets"
     ></rmv-styles>
-    <rmv-diagram readonly><template></template></rmv-diagram>
+    <rmv-diagram readonly>
+      <rmv-card padding="12" slot="actions">
+        <rmv-accordion text="Sources">
+          <rmv-column gap="12">
+            {{SOURCES_LINKS}}
+          </rmv-column>
+        </rmv-accordion>
+      </rmv-card>
+      <template></template>
+    </rmv-diagram>
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {

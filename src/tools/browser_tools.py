@@ -7,6 +7,10 @@ from pathlib import Path
 class BrowserTools:
     """Tools for saving and opening HTML in browser"""
     
+    def __init__(self, file_prefix: str = "decision_tree"):
+        """Initialize with optional file prefix to differentiate outputs"""
+        self.file_prefix = file_prefix
+    
     def save_and_open_html(self, html_content: str, impairment_name: str) -> dict:
         """
         Save HTML content to a file and open it in the default browser.
@@ -25,7 +29,7 @@ class BrowserTools:
             
             # Create filename from impairment name
             safe_name = impairment_name.replace(" ", "_").replace("/", "_")
-            filename = f"decision_tree_{safe_name}.html"
+            filename = f"{self.file_prefix}_{safe_name}.html"
             file_path = output_dir / filename
             
             # Save HTML content

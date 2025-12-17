@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Asthma Risk Assessment</title>
+    <script
+      src="https://cdn.scordigital.solutions/components/latest/themes/brms-119d236af7cd.js"
+      data-turbo-track="reload"
+    ></script>
+    <script
+      src="https://cdn.scordigital.solutions/components/latest/index.js"
+      defer
+      data-turbo-track="reload"
+    ></script>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 20px; }
+      .sources { background: #f5f5f5; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+      .sources h2 { margin-top: 0; }
+      .sources a { display: block; margin: 5px 0; color: #0066cc; }
+    </style>
+  </head>
+  <body>
+
+    <rmv-styles
+      asset-path="https://cdn.scordigital.solutions/assets"
+    ></rmv-styles>
+    <rmv-diagram readonly>
+      <rmv-card padding="12" slot="actions">
+        <rmv-accordion text="Sources">
+          <rmv-column gap="12">
+            <a href="https://www.example.com/asthma-management">Asthma Management: A Guide for Practitioners</a>
+            <a href="https://www.example.com/asthma-control">Asthma Control Strategies</a>
+            <a href="https://www.example.com/asthma-environment">Asthma and Environment: Risk Assessment</a>
+            <a href="https://www.example.com/mild-asthma">Characteristics of Mild Asthma: Guidelines</a>
+            <a href="https://www.example.com/lifestyle-asthma">Lifestyle Impacts on Asthma</a>
+          </rmv-column>
+        </rmv-accordion>
+      </rmv-card>
+      <template></template>
+    </rmv-diagram>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const diagram = document.querySelector("rmv-diagram");
+        diagram.data = {
+          "nodes": [
+            {"id": 1, "title": "Rule / Decision Point", "content": "Has the patient experienced exacerbations in the past year?"},
+            {"id": 2, "title": "Rule / Decision Point", "content": "Are there significant environmental triggers present?"},
+            {"id": 3, "title": "Rule / Decision Point", "content": "Is asthma control assessed as poor based on recent evaluations?"},
+            {"id": 4, "title": "Rule / Decision Point", "content": "Are spirometry results below expected standards?"},
+            {"id": 5, "title": "Rule / Decision Point", "content": "Does the patient have other comorbidities impacting respiratory health?"},
+            {"id": 6, "title": "Assignment", "content": "Critical", "type": "code"},
+            {"id": 7, "title": "Assignment", "content": "High", "type": "code"},
+            {"id": 8, "title": "Assignment", "content": "Medium", "type": "code"},
+            {"id": 9, "title": "Assignment", "content": "Low", "type": "code"},
+            {"id": 10, "title": "Rule / Decision Point", "content": "Is there a genetic predisposition to asthma in the family history?"},
+            {"id": 11, "title": "Assignment", "content": "Medium", "type": "code"}
+          ],
+          "connections": [
+            {"source": 1, "target": 2, "label": "Yes"},
+            {"source": 1, "target": 10, "label": "No"},
+            {"source": 2, "target": 3, "label": "Yes"},
+            {"source": 2, "target": 9, "label": "No"},
+            {"source": 3, "target": 4, "label": "Poor"},
+            {"source": 3, "target": 8, "label": "Good"},
+            {"source": 4, "target": 5, "label": "Below Standards"},
+            {"source": 4, "target": 8, "label": "Above Standards"},
+            {"source": 5, "target": 6, "label": "Present"},
+            {"source": 5, "target": 7, "label": "None"},
+            {"source": 10, "target": 11, "label": "Yes"},
+            {"source": 10, "target": 9, "label": "No"}
+          ]
+        };
+      });
+    </script>
+  </body>
+</html>
