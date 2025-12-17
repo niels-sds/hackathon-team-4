@@ -1,12 +1,4 @@
-"""Search Agent - Step 2: Retrieve and filter medical documents"""
-from agent_framework.azure import AzureAIAgentClient
-from models.workflow_schemas import RetrievedDocuments
-
-
-def create_search_agent(client: AzureAIAgentClient):
-    """Create the Search Agent"""
-    return client.create_agent(
-        instructions="""
+""""
 You are a medical document retrieval specialist.
 
 **YOUR ROLE:** Based on search queries from the previous agent, return relevant medical documents.
@@ -22,7 +14,30 @@ You are a medical document retrieval specialist.
    - summary: 2-3 sentences about risk factors, diagnostic criteria, or complications
 
 Return documents that would be useful for building a risk assessment decision tree.
-        """,
         name="SearchAgent",
         output_schema=RetrievedDocuments,
     )
+"""
+
+# This initializes a search agent to gather articles and and abstracts from the internet.
+# import os
+# from agent_framework.devui import serve
+import logging
+
+from agent_framework.azure import AzureAIAgentClient
+from azure.identity.aio import AzureCliCredential
+from dotenv import load_dotenv
+
+load_dotenv()
+
+logging.basicConfig(level=logging.INFO, format="%(message)s")
+
+search_agent = AzureAIAgentClient().create_agent(
+    instructions="""
+                
+                """,
+    name="SearchAgent",
+    output_schema=RetrievedDocuments
+)
+
+# serve(entities=[search_agent], port=8090, auto_open=True, tracing_enabled=True)
