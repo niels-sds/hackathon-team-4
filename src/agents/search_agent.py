@@ -25,7 +25,8 @@ Return documents that would be useful for building a risk assessment decision tr
 import logging
 
 from agent_framework.azure import AzureAIAgentClient
-from azure.identity.aio import AzureCliCredential
+
+# from azure.identity.aio import AzureCliCredential
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -34,7 +35,28 @@ logging.basicConfig(level=logging.INFO, format="%(message)s")
 
 search_agent = AzureAIAgentClient().create_agent(
     instructions="""
+                You are a medical document retrieval specialist.
+
+                **YOUR ROLE:** Based on search queries from the previous agent, return relevant medical documents.
+
+                **INPUT:** The previous agent provided search queries for an impairment
+
+                **SEARCH CRITERIA:**
+                    - Search only in reputable sources of medical information: medical journals, universities and health organizations.
+                    - Your search is worldwide.
+                    - Search for documents with information on mortality risk, permanent or temporary disability and morbidity risk.
+                      For morbidity, only look into the following medical conditions:
+                      cancer, dementia,diabetes, heart attack,Parkinson's, stroke, organ transplant (MOT) and renal failure.
+                    - Documents do not need to be disease specific.
                 
+                **YOUR TASK:**
+                1. Extract the impairment_name from the previous message
+                2. Use the SEARCH CRITERIA to retrieve maximum 20 relevant documents 
+                3. Each document should have:
+                - url: A realistic medical source URL (e.g., from WHO, NCCN, CDC, NIH)
+                - title: A relevant document title
+                
+                Return documents that would be useful for building a risk assessment decision tree
                 """,
     name="SearchAgent",
     output_schema=RetrievedDocuments
