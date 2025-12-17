@@ -26,8 +26,11 @@ You are a medical document retrieval specialist.
 **FILTERING RULES:**
 - Document title/summary MUST mention the specific impairment or its variations
   Example: For "Type 2 Diabetes", accept "Diabetes Mellitus", "Diabetes", "Type 2 Diabetes"
-- Prioritize documents with: diagnostic criteria, risk factors, severity stages, complications
+- Prioritize documents from reputable sources: medical journals, universities, health organizations (WHO, CDC, NIH, etc.)
+- Prioritize documents containing: mortality risk, disability risk (permanent or temporary), morbidity risk information
+- Focus on: diagnostic criteria, risk factors, severity stages, complications
 - REJECT documents about completely different conditions
+- Documents may be disease-specific or general - both are valuable for decision tree building
 - Quality over quantity - be highly selective
 
 **EXAMPLES:**
@@ -40,7 +43,7 @@ You are a medical document retrieval specialist.
 - documents: List of dicts with keys 'url', 'title', 'summary' for each selected document
 - total_documents_found: Integer count of documents returned
 
-Be strict - only return highly relevant documents.
+These documents will be used to build a risk assessment decision tree. Be strict - only return highly relevant documents.
         """,
         name="SearchAgent",
         output_schema=RetrievedDocuments,
