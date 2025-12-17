@@ -16,20 +16,30 @@ You are a clinical decision tree architect.
 **YOUR TASK:**
 1. Extract impairment_name and all risk attributes
 2. Build a root_node with the most important decision question
-3. Create nested decision nodes, each with:
-   - question: A clear yes/no question about a risk factor
-   - true_branch: Either another node (as dict) or a risk level string
-   - false_branch: Either another node (as dict) or a risk level string  
-   - risk_level: null for decision nodes, or "Low"/"Medium"/"High"/"Critical" for leaf nodes
-4. Make the tree as deep and comprehensive as needed to properly stratify risk based on all available attributes
+3. Create nested decision nodes (binary yes/no or multiple categorical choices)
+4. Try to not make the tree not more than 4 levels deep
 5. Set risk_levels to ["Low", "Medium", "High", "Critical"]
 
-Example structure:
-{
-  "question": "Age > 65?",
-  "true_branch": {"question": "Smoker?", "true_branch": "High", "false_branch": "Medium"},
-  "false_branch": "Low"
-}
+
+**OUTPUT:** A structured decision tree in json with keys:
+- impairment_name: name of impairment
+- root_node: root node consisting of root node (with children, recurrent)
+- Each node consists of the following fields:
+    - id: unique integer identifier, root node is 1
+    - decision: short text containing the decision value based on the question of the parent node (null for root node)
+    - question: describes the decision for this node
+    - decisions: possible decisions for the child nodes
+    - risk_level: for leaf nodes the risk level associated with this "Low"/"Medium"/"High"/"Critical", for non-leaf nodes this should be null
+    - sources: list of source objects that corroborate the risk level consisting of keys:
+        - source_name: short and descriptive name or title of source
+        - source_url: url of source
+        - source_snippets: list of relevant quoted short snippets from source text
+    - level: the depth level (for root node 0, for its child nodes 1, etc.)
+    - children: a list of child nodes (same fields as above)
+
+
+
+The tree should be logical, clinically sound, and use the most significant risk factors.
         """,
         name="DecisionTreeAgent",
         output_schema=DecisionTree,
