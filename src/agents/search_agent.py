@@ -29,6 +29,8 @@ from agent_framework.azure import AzureAIAgentClient
 # from azure.identity.aio import AzureCliCredential
 from dotenv import load_dotenv
 
+from models.workflow_schemas import RetrievedDocuments
+
 load_dotenv()
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
@@ -52,11 +54,12 @@ search_agent = AzureAIAgentClient().create_agent(
                 **YOUR TASK:**
                 1. Extract the impairment_name from the previous message
                 2. Use the SEARCH CRITERIA to retrieve maximum 20 relevant documents 
-                3. Each document should have:
+                3. For each document provide:
                 - url: A realistic medical source URL (e.g., from WHO, NCCN, CDC, NIH)
                 - title: A relevant document title
+                - summary: 2-3 sentences about risk factors, diagnostic criteria, or complications
                 
-                Return documents that would be useful for building a risk assessment decision tree
+                Return results that would be useful for building a risk assessment decision tree
                 """,
     name="SearchAgent",
     output_schema=RetrievedDocuments
