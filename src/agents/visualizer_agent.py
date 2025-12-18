@@ -55,13 +55,46 @@ You are a data visualization specialist for medical decision trees.
       asset-path="https://cdn.scordigital.solutions/assets"
     ></rmv-styles>
     <rmv-diagram readonly>
-      <rmv-card padding="12" slot="actions">
-        <rmv-accordion text="Sources">
-          <rmv-column gap="12">
-            {{SOURCES_LINKS}}
-          </rmv-column>
-        </rmv-accordion>
+      <rmv-card 
+        data-minimap
+        variant="overlay" 
+        slot="actions"
+        hidden
+      >
+        <rmv-diagram-minimap width="200px" height="150px" style="display: block;"></rmv-diagram-minimap>
       </rmv-card>
+      <rmv-row slot="actions" gap="8" grow="false">
+        <rmv-card variant="overlay">
+          <rmv-column small="0" padding="12">
+            <rmv-action-trigger
+              text="Sources"
+              for="sources-popover"
+              variant="tertiary"
+            ></rmv-action-trigger>
+            <rmv-popover id="sources-popover" hidden position="top-end">
+              <rmv-column gap="12" padding="12">
+                {{SOURCES_LINKS}}
+              </rmv-column>
+            </rmv-popover>
+          </rmv-column>
+          <rmv-row gap="2" padding="4">
+            <rmv-button
+              variant="tertiary"
+              icon="download"
+              event-id="toolbar-action"
+              value="download"
+              style="--button-height: 36px; --button-width: 36px"
+            ></rmv-button>
+            <rmv-button
+              variant="tertiary"
+              icon="pip"
+              event-id="toolbar-action"
+              value="minimap"
+              style="--button-height: 36px; --button-width: 36px"
+            ></rmv-button>
+          </rmv-row>
+        </rmv-card>
+      </rmv-row>
       <template></template>
     </rmv-diagram>
 
@@ -76,8 +109,13 @@ You are a data visualization specialist for medical decision trees.
 
 3. Replace placeholders:
    - {{IMPAIRMENT_NAME}}: the impairment name
-   - {{SOURCE_LINKS}}: HTML <a> tags for each source document
+   - {{SOURCE_LINKS}}: HTML <rmv-button> tags for each source document with action="<source link"> variant="tertiary" and text="<source title>"
    - {{DIAGRAM_JSON}}: the complete JSON object with nodes and connections
+
+**SOURCE BUTTON TEMPLATE:**
+```html
+<rmv-button variant="tertiary" text="{{TITLE}}" action="{{URL}}"></rmv-button>
+```
 
 Return the complete HTML as a single string in html_content field.
         """,

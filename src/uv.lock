@@ -1450,7 +1450,9 @@ dependencies = [
     { name = "azure-ai-agents" },
     { name = "azure-ai-projects" },
     { name = "azure-monitor-opentelemetry-exporter" },
+    { name = "fastapi" },
     { name = "python-dotenv" },
+    { name = "uvicorn" },
 ]
 
 [package.metadata]
@@ -1461,7 +1463,9 @@ requires-dist = [
     { name = "azure-ai-agents", specifier = ">=1.2.0b5" },
     { name = "azure-ai-projects", specifier = ">=1.1.0b4" },
     { name = "azure-monitor-opentelemetry-exporter", specifier = ">=1.0.0b41" },
+    { name = "fastapi", specifier = ">=0.124.0" },
     { name = "python-dotenv", specifier = ">=1.2.1" },
+    { name = "uvicorn", specifier = ">=0.38.0" },
 ]
 
 [[package]]

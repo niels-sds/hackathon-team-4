@@ -11,5 +11,7 @@ dependencies = [
     "azure-ai-agents>=1.2.0b5",
     "azure-ai-projects>=1.1.0b4",
     "azure-monitor-opentelemetry-exporter>=1.0.0b41",
+    "fastapi>=0.124.0",
     "python-dotenv>=1.2.1",
+    "uvicorn>=0.38.0",
 ]
