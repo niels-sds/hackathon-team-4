@@ -12,9 +12,15 @@ class BrowserAction(BaseModel):
     message: str = Field(description="Confirmation or error message")
 
 
-def create_browser_agent(client: AzureAIAgentClient):
-    """Create the Browser Agent"""
-    browser_tools = BrowserTools()
+def create_browser_agent(client: AzureAIAgentClient, name: str = "BrowserAgent", file_prefix: str = "decision_tree"):
+    """Create the Browser Agent
+    
+    Args:
+        client: The Azure AI Agent client
+        name: Name for the agent (must be unique)
+        file_prefix: Prefix for saved HTML files (e.g., "diagram", "rating_table")
+    """
+    browser_tools = BrowserTools(file_prefix=file_prefix)
     
     return client.create_agent(
         instructions="""
@@ -32,7 +38,7 @@ You are a browser automation specialist.
 
 DO NOT ask questions. Execute the tool immediately with the data you receive.
         """,
-        name="BrowserAgent",
+        name=name,
         tool_choice=ToolMode.REQUIRED,
         tools=[browser_tools.save_and_open_html],
     )

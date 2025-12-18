@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SDS Components — Asthma Rating</title>
+    <link rel="stylesheet" href="https://cdn.scordigital.solutions/sds/1.1.1/themes/scor/main.css" />
+    <script src="https://cdn.scordigital.solutions/sds/1.1.1/loader.js" type="module"></script>
+  </head>
+  <body>
+    <sds-card>
+      <sds-row padding="spacing-400/spacing-500">
+        <sds-content size="lead" text="Rating — Asthma" color="text-heading"></sds-content>
+      </sds-row>
+      <sds-divider></sds-divider>
+
+      <sds-table offset="true">
+        <sds-row>
+          <sds-table-header background="true" width="23%" text="Appreciation elements" value="asc" name="appreciation"></sds-table-header>
+          <sds-table-header background="true" width="11%" text="Life" value="asc" name="life"></sds-table-header>
+          <sds-table-header background="true" width="11%" text="Accidental Death" value="asc" name="accidental-death"></sds-table-header>
+          <sds-table-header background="true" width="11%" text="ADB Stand Alone" value="asc" name="adb"></sds-table-header>
+          <sds-table-header background="true" width="11%" text="Income Protection (dp < 30d)" value="asc" name="ip-30"></sds-table-header>
+          <sds-table-header background="true" width="11%" text="Income Protection (dp 30-60d)" value="asc" name="ip-30-60"></sds-table-header>
+          <sds-table-header background="true" width="11%" text="Income Protection (dp >60d)" value="asc" name="ip-60"></sds-table-header>
+          <sds-table-header background="true" width="11%" text="T.P.D. ADW/ADL" value="asc" name="tpd"></sds-table-header>
+        </sds-row>
+
+        <sds-divider></sds-divider>
+
+        <sds-accordion text="Do symptoms occur more than twice a month?">
+          <sds-table-cell slot="suffix" width="100%" text="&nbsp;"></sds-table-cell>
+
+          <sds-accordion text="Yes" padding="spacing-none/spacing-none/spacing-none/spacing-600">
+            <sds-table-cell slot="suffix" width="100%" text="&nbsp;"></sds-table-cell>
+
+            <sds-accordion text="Is there a recent history of severe exacerbations?" padding="spacing-none/spacing-none/spacing-none/spacing-600">
+              <sds-table-cell slot="suffix" width="100%" text="&nbsp;"></sds-table-cell>
+
+              <sds-accordion text="Yes" padding="spacing-none/spacing-none/spacing-none/spacing-600">
+                <sds-table-cell slot="suffix" width="100%" text="&nbsp;"></sds-table-cell>
+
+                <sds-accordion text="Is there frequent use of rescue medication (inhaler) weekly?" padding="spacing-none/spacing-none/spacing-none/spacing-600">
+                  <sds-table-cell slot="suffix" width="100%" text="&nbsp;"></sds-table-cell>
+
+                  <sds-accordion text="Yes" padding="spacing-none/spacing-none/spacing-none/spacing-600">
+                    <sds-table-cell slot="suffix" width="100%" text="&nbsp;"></sds-table-cell>
+
+                    <sds-accordion text="Is there poor lung function (<60% predicted FEV1)?" padding="spacing-none/spacing-none/spacing-none/spacing-600">
+                      <sds-table-cell slot="suffix" width="100%" text="&nbsp;"></sds-table-cell>
+
+                      <sds-accordion text="Yes" padding="spacing-none/spacing-none/spacing-none/spacing-600">
+                        <sds-table-cell slot="suffix" width="100%" text="&nbsp;"></sds-table-cell>
+
+                        <sds-row>
+                          <sds-table-cell width="23%">
+                            <sds-row alignment="start" gap="spacing-200">
+                              <sds-radio id="asthma-1" name="asthma[]" value="1"></sds-radio>
+                              <sds-label for="asthma-1">
+                                <sds-content size="meta" color="text-body" text="Severe exacerbations, frequent inhaler use, poor lung function"></sds-content>
+                              </sds-label>
+                            </sds-row>
+                          </sds-table-cell>
+                          <sds-table-cell width="11%" text="Critical"></sds-table-cell>
+                          <sds-table-cell width="11%" text="Critical"></sds-table-cell>
+                          <sds-table-cell width="11%" text="Critical"></sds-table-cell>
+                          <sds-table-cell width="11%" text="Critical"></sds-table-cell>
+                          <sds-table-cell width="11%" text="Critical"></sds-table-cell>
+                          <sds-table-cell width="11%" text="Critical"></sds-table-cell>
+                          <sds-table-cell width="11%" text="Critical"></sds-table-cell>
+                        </sds-row>
+
+                      </sds-accordion>
+
+                      <sds-divider></sds-divider>
+
+                      <sds-accordion text="No" padding="spacing-none/spacing-none/spacing-none/spacing-600">
+                        <sds-table-cell slot="suffix" width="100%" text="&nbsp;"></sds-table-cell>
+
+                        <sds-row>
+                          <sds-table-cell width="23%">
+                            <sds-row alignment="start" gap="spacing-200">
+                              <sds-radio id="asthma-2" name="asthma[]" value="2"></sds-radio>
+                              <sds-label for="asthma-2">
+                                <sds-content size="meta" color="text-body" text="Severe exacerbations, frequent inhaler use"></sds-content>
+                              </sds-label>
+                            </sds-row>
+                          </sds-table-cell>
+                          <sds-table-cell width="11%" text="High"></sds-table-cell>
+                          <sds-table-cell width="11%" text="High"></sds-table-cell>
+                          <sds-table-cell width="11%" text="High"></sds-table-cell>
+                          <sds-table-cell width="11%" text="High"></sds-table-cell>
+                          <sds-table-cell width="11%" text="High"></sds-table-cell>
+                          <sds-table-cell width="11%" text="High"></sds-table-cell>
+                          <sds-table-cell width="11%" text="High"></sds-table-cell>
+                        </sds-row>
+
+                      </sds-accordion>
+
+                    </sds-accordion>
+
+                  </sds-accordion>
+
+                  <sds-divider></sds-divider>
+
+                  <sds-accordion text="No" padding="spacing-none/spacing-none/spacing-none/spacing-600">
+                    <sds-table-cell slot="suffix" width="100%" text="&nbsp;"></sds-table-cell>
+
+                    <sds-row>
+                      <sds-table-cell width="23%">
+                        <sds-row alignment="start" gap="spacing-200">
+                          <sds-radio id="asthma-3" name="asthma[]" value="3"></sds-radio>
+                          <sds-label for="asthma-3">
+                            <sds-content size="meta" color="text-body" text="Severe exacerbations"></sds-content>
+                          </sds-label>
+                        </sds-row>
+                      </sds-table-cell>
+                      <sds-table-cell width="11%" text="Medium"></sds-table-cell>
+                      <sds-table-cell width="11%" text="Medium"></sds-table-cell>
+                      <sds-table-cell width="11%" text="Medium"></sds-table-cell>
+                      <sds-table-cell width="11%" text="Medium"></sds-table-cell>
+                      <sds-table-cell width="11%" text="Medium"></sds-table-cell>
+                      <sds-table-cell width="11%" text="Medium"></sds-table-cell>
+                      <sds-table-cell width="11%" text="Medium"></sds-table-cell>
+                    </sds-row>
+
+                  </sds-accordion>
+
+                </sds-accordion>
+
+              </sds-accordion>
+
+              <sds-divider></sds-divider>
+
+              <sds-accordion text="No" padding="spacing-none/spacing-none/spacing-none/spacing-600">
+                <sds-table-cell slot="suffix" width="100%" text="&nbsp;"></sds-table-cell>
+
+                <sds-row>
+                  <sds-table-cell width="23%">
+                    <sds-row alignment="start" gap="spacing-200">
+                      <sds-radio id="asthma-4" name="asthma[]" value="4"></sds-radio>
+                      <sds-label for="asthma-4">
+                        <sds-content size="meta" color="text-body" text="Symptoms more than twice a month"></sds-content>
+                      </sds-label>
+                    </sds-row>
+                  </sds-table-cell>
+                  <sds-table-cell width="11%" text="Low"></sds-table-cell>
+                  <sds-table-cell width="11%" text="Low"></sds-table-cell>
+                  <sds-table-cell width="11%" text="Low"></sds-table-cell>
+                  <sds-table-cell width="11%" text="Low"></sds-table-cell>
+                  <sds-table-cell width="11%" text="Low"></sds-table-cell>
+                  <sds-table-cell width="11%" text="Low"></sds-table-cell>
+                  <sds-table-cell width="11%" text="Low"></sds-table-cell>
+                </sds-row>
+
+              </sds-accordion>
+
+            </sds-accordion>
+
+          </sds-accordion>
+
+          <sds-divider></sds-divider>
+
+          <sds-accordion text="No" padding="spacing-none/spacing-none/spacing-none/spacing-600">
+            <sds-table-cell slot="suffix" width="100%" text="&nbsp;"></sds-table-cell>
+
+            <sds-row>
+              <sds-table-cell width="23%">
+                <sds-row alignment="start" gap="spacing-200">
+                  <sds-radio id="asthma-5" name="asthma[]" value="5"></sds-radio>
+                  <sds-label for="asthma-5">
+                    <sds-content size="meta" color="text-body" text="Less than twice monthly symptoms"></sds-content>
+                  </sds-label>
+                </sds-row>
+              </sds-table-cell>
+              <sds-table-cell width="11%" text="Low"></sds-table-cell>
+              <sds-table-cell width="11%" text="Low"></sds-table-cell>
+              <sds-table-cell width="11%" text="Low"></sds-table-cell>
+              <sds-table-cell width="11%" text="Low"></sds-table-cell>
+              <sds-table-cell width="11%" text="Low"></sds-table-cell>
+              <sds-table-cell width="11%" text="Low"></sds-table-cell>
+              <sds-table-cell width="11%" text="Low"></sds-table-cell>
+            </sds-row>
+
+          </sds-accordion>
+
+        </sds-accordion>
+
+        <sds-divider></sds-divider>
+
+        <!-- Footer with sources -->
+        <sds-row>
+          <sds-table-footer width="100%" gap="spacing-200">
+            <sds-column gap="spacing-200">
+              <sds-button variant="tertiary" text="American Lung Association" action="https://www.lung.org/lung-health-diseases/lung-disease-lookup/asthma"></sds-button>
+              <sds-button variant="tertiary" text="Global Initiative for Asthma (GINA)" action="https://ginasthma.org/"></sds-button>
+              <sds-button variant="tertiary" text="NHLBI Asthma Guidelines" action="https://www.nhlbi.nih.gov/health-topics/asthma"></sds-button>
+              <sds-button variant="tertiary" text="CDC Asthma Information" action="https://www.cdc.gov/asthma/about.html"></sds-button>
+              <sds-button variant="tertiary" text="Mayo Clinic Asthma Overview" action="https://www.mayoclinic.org/diseases-conditions/asthma"></sds-button>
+            </sds-column>
+          </sds-table-footer>
+        </sds-row>
+      </sds-table>
+    </sds-card>
+  </body>
+</html>

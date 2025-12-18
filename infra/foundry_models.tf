@@ -5,7 +5,7 @@ resource "azapi_resource" "chat_model_deployment" {
   tags      = local.tags_azapi
   body = {
     properties = {
-      currentCapacity = 50
+      currentCapacity = 25
       model = {
         format  = "OpenAI"
         name    = "gpt-4o"
@@ -14,7 +14,7 @@ resource "azapi_resource" "chat_model_deployment" {
       raiPolicyName = "Microsoft.DefaultV2"
     }
     sku = {
-      capacity = 100
+      capacity = 50
       name     = "GlobalStandard"
     }
   }
